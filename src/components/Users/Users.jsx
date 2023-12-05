@@ -29,13 +29,20 @@ const Users = () => {
           Add User
         </button>
       </div>
+      <div className="d-flex align-items-center gap-2 justify-content-end">
+        <button className="btn btn-primary">Prev</button>
+        <button className="btn btn-primary">Next</button>
+      </div>
       {users && users.length ? (
-        <table className="table">
+        <table className="table overflow-auto  ">
           <thead>
             <tr>
               <th scope="col">ID</th>
+              <th scope="col">Image</th>
               <th scope="col">Username</th>
-              <th scope="col">Email</th>
+              <th scope="col" className="d-none d-md-block">
+                Email
+              </th>
               <th scope="col" className="text-center ">
                 Actions
               </th>
@@ -46,8 +53,18 @@ const Users = () => {
               return (
                 <tr className="align-middle" key={user.id}>
                   <th scope="row">{user.id}</th>
-                  <td className="text-capitalize">{user.name}</td>
-                  <td className="">{user.email}</td>
+                  <td scope="col" className="">
+                    <img
+                      src={user.profile_url}
+                      alt={user.name}
+                      className="rounded-circle"
+                      style={{ width: 50, height: 50 }}
+                    />
+                  </td>
+                  <td scope="col" className="text-capitalize">
+                    {user.name}
+                  </td>
+                  <td scope="col">{user.email}</td>
                   <td>
                     <div className="d-flex gap-2 justify-content-center">
                       <button
@@ -57,20 +74,24 @@ const Users = () => {
                       >
                         View
                       </button>
-                      <button
-                        type="button"
-                        onClick={() => navigate("/edit-user", { state: user })}
-                        className="btn btn-warning"
-                      >
-                        Edit
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => handleDelete(user.id)}
-                        className="btn btn-danger"
-                      >
-                        Delete
-                      </button>
+                      <div className="d-none d-md-flex gap-2">
+                        <button
+                          type="button"
+                          onClick={() =>
+                            navigate("/edit-user", { state: user })
+                          }
+                          className="btn btn-warning"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleDelete(user.id)}
+                          className="btn btn-danger"
+                        >
+                          Delete
+                        </button>
+                      </div>
                     </div>
                   </td>
                 </tr>
@@ -79,7 +100,7 @@ const Users = () => {
           </tbody>
         </table>
       ) : (
-        <div class="alert alert-dark" role="alert">
+        <div className="alert alert-dark" role="alert">
           Click <b>Add User</b> to add users
         </div>
       )}
