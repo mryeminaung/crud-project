@@ -70,7 +70,9 @@ const Users = () => {
                       <button
                         type="button"
                         className="btn btn-success"
-                        onClick={() => navigate(`/users/${user.id}`)}
+                        onClick={() =>
+                          navigate(`/users/${user.id}`, { state: user })
+                        }
                       >
                         View
                       </button>
